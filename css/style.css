@@ -1,0 +1,567 @@
+/* ============================================================
+   style.css — Custom CSS untuk Portfolio Website
+   Berisi: variabel CSS, animasi, komponen kustom, override Tailwind
+   ============================================================ */
+
+/* ---- CSS Custom Properties (Design Tokens) ---- */
+:root {
+  /* Warna utama */
+  --color-primary:       #3b82f6;
+  --color-primary-dark:  #2563eb;
+  --color-primary-light: #93c5fd;
+
+  /* Warna teks */
+  --color-text-base:    #111827;
+  --color-text-muted:   #6b7280;
+
+  /* Warna latar */
+  --color-bg-base:      #ffffff;
+  --color-bg-subtle:    #f9fafb;
+
+  /* Warna error */
+  --color-error:        #ef4444;
+  --color-error-bg:     #fef2f2;
+
+  /* Warna sukses */
+  --color-success:      #22c55e;
+  --color-success-bg:   #f0fdf4;
+
+  /* Tipografi */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* Spacing */
+  --section-padding-y: 5rem;
+
+  /* Border radius */
+  --radius-card: 0.75rem;
+  --radius-btn:  0.5rem;
+
+  /* Transisi */
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+
+  /* Shadow */
+  --shadow-card: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-card-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+/* Dark mode overrides */
+.dark {
+  --color-text-base:  #f9fafb;
+  --color-text-muted: #9ca3af;
+  --color-bg-base:    #111827;
+  --color-bg-subtle:  #1f2937;
+}
+
+/* ---- Base / Reset ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fokus aksesibel */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---- Komponen: Tombol ---- */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem 1.5rem;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  border-radius: var(--radius-btn);
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgb(59 130 246 / 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem 1.5rem;
+  background-color: transparent;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  border-radius: var(--radius-btn);
+  border: 2px solid var(--color-primary);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color var(--transition-base), color var(--transition-base), transform var(--transition-base);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* ---- Komponen: Section Title ---- */
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3rem;
+  height: 3px;
+  background-color: var(--color-primary);
+  border-radius: 9999px;
+}
+
+/* ---- Komponen: Skill Card ---- */
+.skill-card {
+  background-color: var(--color-bg-base);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition-slow), transform var(--transition-slow);
+}
+
+.dark .skill-card {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+.skill-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.375rem 0;
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+}
+
+.skill-icon {
+  font-size: 1.125rem;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 1.5rem;
+  text-align: center;
+}
+
+/* ---- Komponen: Project Card ---- */
+.project-card {
+  background-color: var(--color-bg-base);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition-slow), transform var(--transition-slow);
+  display: flex;
+  flex-direction: column;
+}
+
+.dark .project-card {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+.project-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-4px);
+}
+
+.project-card-image {
+  width: 100%;
+  height: 12rem;
+  object-fit: cover;
+  background-color: #e5e7eb;
+}
+
+.dark .project-card-image {
+  background-color: #374151;
+}
+
+.project-card-body {
+  padding: 1.25rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-base);
+}
+
+.project-card-description {
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+  margin-bottom: 1rem;
+  flex: 1;
+  line-height: 1.6;
+}
+
+.project-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-bottom: 1rem;
+}
+
+.project-tag {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  border: 1px solid #bfdbfe;
+}
+
+.dark .project-tag {
+  background-color: #1e3a5f;
+  color: #93c5fd;
+  border-color: #1e40af;
+}
+
+.project-card-links {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+.project-link:hover {
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+}
+
+/* ---- Komponen: Filter Buttons ---- */
+.filter-btn {
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  border: 2px solid #e5e7eb;
+  background-color: transparent;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.dark .filter-btn {
+  border-color: #374151;
+}
+
+.filter-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.filter-btn.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+}
+
+/* ---- Komponen: Navbar Links ---- */
+.nav-link {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #4b5563;
+  text-decoration: none;
+  padding: 0.25rem 0;
+  position: relative;
+  transition: color var(--transition-base);
+}
+
+.dark .nav-link {
+  color: #d1d5db;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-primary);
+  border-radius: 9999px;
+  transition: width var(--transition-base);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--color-primary);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* Mobile nav link */
+.mobile-nav-link {
+  display: block;
+  padding: 0.625rem 0.75rem;
+  border-radius: 0.5rem;
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+.mobile-nav-link::after {
+  display: none;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+  background-color: #eff6ff;
+  color: var(--color-primary);
+}
+
+.dark .mobile-nav-link:hover,
+.dark .mobile-nav-link.active {
+  background-color: #1e3a5f;
+}
+
+/* ---- Komponen: Form ---- */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text-base);
+  margin-bottom: 0.375rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  border: 1.5px solid #d1d5db;
+  border-radius: 0.5rem;
+  background-color: var(--color-bg-base);
+  color: var(--color-text-base);
+  font-size: 0.9375rem;
+  font-family: var(--font-sans);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.dark .form-input {
+  background-color: #1f2937;
+  border-color: #374151;
+  color: #f9fafb;
+}
+
+.form-input::placeholder {
+  color: #9ca3af;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgb(59 130 246 / 0.15);
+}
+
+.form-input.error {
+  border-color: var(--color-error);
+}
+
+.form-input.error:focus {
+  box-shadow: 0 0 0 3px rgb(239 68 68 / 0.15);
+}
+
+.form-error {
+  font-size: 0.8125rem;
+  color: var(--color-error);
+  margin-top: 0.375rem;
+  min-height: 1.25rem;
+}
+
+/* ---- Komponen: Social Link ---- */
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  border: 1px solid #e5e7eb;
+  transition: all var(--transition-base);
+}
+
+.dark .social-link {
+  border-color: #374151;
+}
+
+.social-link:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  background-color: #eff6ff;
+  transform: translateX(4px);
+}
+
+.dark .social-link:hover {
+  background-color: #1e3a5f;
+}
+
+/* ---- Animasi: Fade-in saat scroll ---- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* State awal elemen yang akan dianimasikan */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform; /* Hint GPU compositing untuk performa */
+}
+
+/* State setelah elemen masuk viewport */
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  will-change: auto; /* Bebaskan hint setelah animasi selesai */
+}
+
+/* Delay animasi untuk efek stagger pada elemen saudara (misal: skill cards) */
+.animate-on-scroll:nth-child(2) { transition-delay: 0.1s; }
+.animate-on-scroll:nth-child(3) { transition-delay: 0.2s; }
+.animate-on-scroll:nth-child(4) { transition-delay: 0.3s; }
+
+/* Aksesibilitas: hormati preferensi pengguna untuk mengurangi gerakan */
+@media (prefers-reduced-motion: reduce) {
+  .animate-on-scroll {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+
+  .animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---- Utilitas ---- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Skip-to-main link untuk aksesibilitas keyboard */
+.skip-to-main {
+  position: absolute;
+  left: -9999px;
+  top: 1rem;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: var(--radius-btn);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.skip-to-main:focus {
+  left: 1rem;
+}
+
+/* Scrollbar kustom (opsional, Webkit) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-subtle);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background-color: #4b5563;
+}
